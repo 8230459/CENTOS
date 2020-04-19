@@ -6,7 +6,7 @@ passwd andy
 chown root:andy /home/andy
 chmod 755 /home/andy
 ```
-| 不能在用户目录/home/andy设置操作权限，必须新建data目录
+> 不能在用户目录/home/andy设置操作权限，必须新建data目录
 ```
 mkdir /home/andy/data
 chown root:andy /home/andy/data
