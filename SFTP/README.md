@@ -22,10 +22,23 @@ ls -al
 ```
 vi /etc/ssh/sshd_config
 Subsystem sftp internal-sftp
-Match User last
+Match User andy
 ChrootDirectory /home/%d
 X11Forwarding no
 AllowTcpForwarding no
 ForceCommand internal-sftp
 systemctl restart sshd.service
+```
+
+### 查看系统中有哪些用户
+```
+cut -d : -f 1 /etc/passwd
+```
+### 查看可以登录系统的用户
+```
+cat /etc/passwd | grep -v /sbin/nologin | cut -d : -f 1
+```
+### 查看某一用户
+```
+w 用户名
 ```
