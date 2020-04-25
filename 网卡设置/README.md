@@ -3,7 +3,7 @@
 cd /etc/sysconfig/network-scripts
 ls
 ```
-### 设置网卡
+### 设置无线网卡
 ```
 vi ifcfg-enp0s3
 BOOTPROTO=STATIC
@@ -19,3 +19,29 @@ service network restart
 - 1.关闭系统
 - 2.设置 =》 网络 =》 选择桥接网卡、本地联网的网卡
 - 3.设置 =》 网络 =》 网卡2 =》 启用网络连接 =》 选择网络地址转换（NAT）
+
+### 设置有线网卡
+```
+ifconfig
+vi ifcfg-enp0s8
+```
+```
+TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="static"
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_FAILURE_FATAL="no"
+IPV6_ADDR_GEN_MODE="stable-privacy"
+NAME="enp0s8"
+DEVICE="enp0s8"
+ONBOOT="yes"
+IPADDR=192.168.0.33
+NETMASK=255.255.0.0
+GATEWAY=192.168.0.1
+```
+> 修改windows的本地连接IP地址与虚拟机的IP在同一IP段

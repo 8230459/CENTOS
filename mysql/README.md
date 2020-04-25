@@ -43,6 +43,7 @@ server-id=140       //[必须]服务器唯一ID，默认是1，一般取IP最后
 ### 重启服务
 ```
 systemctl restart mysqld
+netstat -ntlp
 ```
 ### 开通端口访问
 ```
