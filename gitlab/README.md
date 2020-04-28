@@ -33,14 +33,16 @@ gitlab-ctl status
 gitlab-ctl tail
 ```
 ### 配置客户机
->
-
-> 关注以下3个文件
-- C:\Windows\System32\drivers\etc\hosts
+- 生成git ssh密钥
+```
+ssh-keygen -t rsa -C "YOUR_EMAIL@YOUREMAIL.COM" -f ~/.ssh/gitlab
+```
+- 将 C:\Users\Administrator\.ssh\.ssh\gitlab.pub中的内容复制至gitlab网站上
+- 设置host，C:\Windows\System32\drivers\etc\hosts
 ```
 192.168.1.3	gitlab.cn
 ```
-- C:\Users\Administrator\.ssh\config
+- 修改 C:\Users\Administrator\.ssh\config
 ```
 Host gitee.com www.gitee.com
 IdentityFile ~/.ssh/gitee
@@ -51,7 +53,11 @@ IdentityFile ~/.ssh/gitlab
 Host 192.168.1.3
 IdentityFile ~/.ssh/gitlab
 ```
-- C:\Users\Administrator\.ssh\known_hosts
+- 测试连接SSH
+```
+ssh -T git@gitcafe.com
+```
+- 查看 C:\Users\Administrator\.ssh\known_hosts
 ```
 gitlab.cn,192.168.1.3 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL3XCzfzPoNx01a4Y6mYHNtRg8emLiqnCGlR3iQsUDqs+yGq/9ot9FUvcQ4E1PH2IqZ61gi/uAPTEIju5VvXVCA=
 ```
