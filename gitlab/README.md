@@ -61,3 +61,19 @@ ssh -T git@gitcafe.com
 ```
 gitlab.cn,192.168.1.3 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL3XCzfzPoNx01a4Y6mYHNtRg8emLiqnCGlR3iQsUDqs+yGq/9ot9FUvcQ4E1PH2IqZ61gi/uAPTEIju5VvXVCA=
 ```
+
+### 自动部署
+```
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.rpm.sh | sudo bash
+```
+
+### 卸载
+```
+ps aux | grep gitlab
+# 查看 /opt/gitlab/service 的进程号
+kill -9 进程号
+rpm -e gitlab-ee
+find / -name gitlab | xargs sudo rm -rf
+reboot
+ps aux | grep gitlab
+```
