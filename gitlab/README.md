@@ -63,12 +63,17 @@ gitlab.cn,192.168.1.3 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbm
 ```
 
 ### 自动构建与部署
-
 > 安装gitlab-runner
 ```
 curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.rpm.sh | sudo bash
+yum install gitlab-ci-multi-runner
+gitlab-runner register
+chmod -R 777 /home/gitlab-runner
+vi /etc/systemd/system/gitlab-runner.service
+gitlab-runner status
+gitlab-runner run
+ps aux|grep gitlab-runner
 ```
-
 > 安装nodejs
 ```
 # 访问网站查看下载连接
@@ -80,7 +85,6 @@ ln -s /root/nodejs/bin/npm /usr/local/bin/npm
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ln -s /root/nodejs/bin/cnpm /usr/local/bin/cnpm
 ```
-
 > 处理node版本冲突
 ```
 find / -name node
