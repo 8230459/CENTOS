@@ -62,12 +62,61 @@ ssh -T git@gitcafe.com
 gitlab.cn,192.168.1.3 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL3XCzfzPoNx01a4Y6mYHNtRg8emLiqnCGlR3iQsUDqs+yGq/9ot9FUvcQ4E1PH2IqZ61gi/uAPTEIju5VvXVCA=
 ```
 
-### 自动部署
+### 自动构建与部署
+
+> 安装gitlab-runner
 ```
 curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.rpm.sh | sudo bash
 ```
 
-### 卸载
+> 安装nodejs
+```
+# 访问网站查看下载连接
+http://nodejs.cn/download/
+wget https://npm.taobao.org/mirrors/node/v14.0.0/node-v14.0.0-linux-x64.tar.xz
+tar -xvf node-v14.0.0-linux-x64.tar.xz
+ln -s /root/nodejs/bin/node /usr/local/bin/node
+ln -s /root/nodejs/bin/npm /usr/local/bin/npm
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+ln -s /root/nodejs/bin/cnpm /usr/local/bin/cnpm
+```
+
+> 处理node版本冲突
+```
+find / -name node
+/usr/local/bin/node -v
+/usr/bin/node -v
+ln -s /usr/local/bin/node /usr/bin/node
+```
+> 安装yarn
+```
+curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+yum install -y yarn
+yarn -version
+```
+> 免密gitlab服务器登录nginx服务器
+```
+# gitlab服务器上：
+# 修改主机名称
+vi /etc/hostname
+reboot
+uname -n
+# 创建公匙
+cd ~/.ssh
+ssh-keygen -t dsa -P '' -f id_dsa
+# 一路确定
+cat id_dsa.pub >> authorized_keys
+# nginx服务器上：
+cd ~/.ssh
+scp gitlab服务器IP:/root/.ssh/authorized_keys ./authorized_keys.gitlab
+cat authorized_keys.gitlab >> authorized_keys
+# gitlab服务器上测试免密连接：
+ssh -tt root@nginx服务器ip
+logout
+```
+
+### 卸载gitlab
 ```
 ps aux | grep gitlab
 # 查看 /opt/gitlab/service 的进程号
