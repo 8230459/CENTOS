@@ -21,7 +21,6 @@ systemctl restart docker
 systemctl stop docker
 systemctl status docker
 docker run hello-world
-<<<<<<< HEAD
 ```
 ### 创建镜像
 ```
@@ -78,6 +77,4 @@ netstat -tnlp
 
 > 访问http://服务器IP:8081/activiti-app
 
-=======
-```
->>>>>>> parent of a03a0f6... no msg
+
