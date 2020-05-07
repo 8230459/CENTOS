@@ -30,6 +30,9 @@ hibernate.dialect=org.hibernate.dialect.MySQLDialect
 #hibernate.dialect=org.hibernate.dialect.DB2Dialect
 #hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 ```
+```
+netstat -tnlp | grep :8080
+```
 
 - 执行startup.bat后访问http://localhost:8080/activiti-app/看是否正常
 
