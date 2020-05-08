@@ -63,7 +63,7 @@ select user,host from user;
 exit
 systemctl restart mysqld
 ```
-###
+### 主从配置
 > 查看主服务器
 ```
 show master status\G
@@ -82,3 +82,10 @@ stop slave;
 SET GLOBAL SQL_SLAVE_SKIP_COUNTER=1;
 start slave;
 ```
+### 重置自增ID
+- 修改 innoDb 为 MyISAM
+```
+use 数据库名
+alter table 表名 AUTO_INCREMENT=22;
+```
+- 修改 MyISAM 为 innoDb
