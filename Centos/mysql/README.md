@@ -89,3 +89,22 @@ use 数据库名
 alter table 表名 AUTO_INCREMENT=22;
 ```
 - 修改 MyISAM 为 innoDb
+
+### binlog2sql误操作回滚
+```
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+pip -V
+yum -y install gi
+git clone https://github.com/danfengcao/binlog2sql.git && cd binlog2sql
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+cd binlog2sql
+#误操作记录的按大概时间区间筛查出来
+python binlog2sql.py -hlocalhost -P3306 -uroot -p'123456' --start-file='mysql-bin.000071' --start-datetime='2020-06-27 13:37:58' --stop-datetime='2020-06-27 16:13:07'
+#5340、5666分别是要回滚掉的操作记录的开始那条记录的开始位置和结束那条记录的结束位置
+python binlog2sql.py -hlocalhost -P3306 -uroot -p'123456' --start-file='mysql-bin.000071' --start-position=5340 --stop-position=5666 -B > b.sql
+cat b.sql
+mysql -uroot -p123456
+mysql> source b.sql;
+
+```
